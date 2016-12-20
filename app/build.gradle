@@ -28,3 +28,16 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':RFIDAPI3Library')
 }
+
+task deleteJar(type: Delete) {
+    delete 'libs/dianthuszebrarfid.jar'
+}
+
+task createJar(type: Copy) {
+    from('build/intermediates/bundles/release/')
+    into('libs/')
+    include('classes.jar')
+    rename('classes.jar', 'dianthuszebrarfid.jar')
+}
+
+createJar.dependsOn(deleteJar, build)
